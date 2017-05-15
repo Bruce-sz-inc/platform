@@ -43,12 +43,16 @@ func runServerCmd(cmd *cobra.Command, args []string) error {
 }
 
 func runServer(configFileLocation string) {
-	if errstr := doLoadConfig(configFileLocation); errstr != "" {
-		l4g.Exit("Unable to load mattermost configuration file: ", errstr)
+	if err := doLoadConfig(configFileLocation); err != nil {
+		l4g.Exit("Unable to load Mattermost configuration file: ", err)
 		return
 	}
 
-	utils.InitTranslations(utils.Cfg.LocalizationSettings)
+	if err := utils.InitTranslations(utils.Cfg.LocalizationSettings); err != nil {
+		l4g.Exit("Unable to load Mattermost translation files: %v", err)
+		return
+	}
+
 	utils.TestConnection(utils.Cfg)
 
 	pwd, _ := os.Getwd()

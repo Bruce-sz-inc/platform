@@ -63,7 +63,7 @@ func FindConfigFile(fileName string) string {
 }
 
 func FindDir(dir string) string {
-	fileName := "."
+	fileName := ""
 	if _, err := os.Stat("./" + dir + "/"); err == nil {
 		fileName, _ = filepath.Abs("./" + dir + "/")
 	} else if _, err := os.Stat("../" + dir + "/"); err == nil {
@@ -72,7 +72,7 @@ func FindDir(dir string) string {
 		fileName, _ = filepath.Abs("../../" + dir + "/")
 	}
 
-	return fileName + "/"
+	return fileName
 }
 
 func DisableDebugLogForTest() {
