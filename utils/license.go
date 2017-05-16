@@ -133,7 +133,8 @@ func GetLicenseFileFromDisk(fileName string) []byte {
 
 func GetLicenseFileLocation(fileLocation string) string {
 	if fileLocation == "" {
-		return FindDir("config") + "mattermost.mattermost-license"
+		configDir, _ := FindDir("config")
+		return configDir + "mattermost.mattermost-license"
 	} else {
 		return fileLocation
 	}
